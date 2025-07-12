@@ -1,5 +1,5 @@
 import { doc, setDoc } from "firebase/firestore";
-import { auth, database } from "./firebase";
+import { auth, database } from "../firebase";
 import { useNavigate } from "react-router";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 async function Signup({ email, password, name, BirthDate }, navigate) {
@@ -11,6 +11,7 @@ async function Signup({ email, password, name, BirthDate }, navigate) {
       password
     );
     let User = UserCredential.user;
+    let providerId=User.providerData[0].providerId
     if (User) {
       await setDoc(doc(database, "users", User.uid), {
         name: name,
@@ -19,10 +20,10 @@ async function Signup({ email, password, name, BirthDate }, navigate) {
         dateofbirth: BirthDate,
       });
       navigate("/");
-      return {status:true,message:'account created successfully'}
+      return {status:true,message:'account created successfully',providerId:providerId}
       //TODO:update state in store after setting up redux which is already installed
     } else {
-      return {status:false,message:'please try again later'}
+      return {status:false,message:'please try again later',providerId:providerId}
     }
   } catch (error) {
     console.log(error);
