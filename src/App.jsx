@@ -13,6 +13,7 @@ function App() {
 
   return (
     <>
+    <div className='min-h-[78.2vh]'>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/login' element={<LoginPage/>}/>
@@ -20,6 +21,7 @@ function App() {
         <Route path='/postform' element={<CreatePostPage/>}/>
         
       </Routes>
+    </div>
     </>
   )
 }
