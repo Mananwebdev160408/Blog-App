@@ -2,7 +2,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { auth, database } from "../firebase";
 import { useNavigate } from "react-router";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-async function Signup({ email, password, name, BirthDate }, navigate) {
+async function Signup({ email, password, name, BirthDate }) {
   let navigate = useNavigate();
   try {
     let UserCredential = await createUserWithEmailAndPassword(

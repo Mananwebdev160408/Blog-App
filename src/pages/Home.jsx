@@ -1,9 +1,14 @@
 import React from 'react'
 import {auth} from '../firebase/firebase'
+import Navbar from '../Components/Navbar'
+import Footer from '../Components/Footer'
 
 function Home() {
 return(
+  
   <>
+  <Navbar/>
+  <div className='min-h-[78vh]'>
   {auth.currentUser?(
     <>
     
@@ -21,7 +26,8 @@ return(
     </div>
     </div>
     </>
-  )}
+  )}</div>
+    <Footer />
   </>
 )
 }

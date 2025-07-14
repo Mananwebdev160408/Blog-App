@@ -4,7 +4,7 @@ import { database, storage } from "../firebase";
 import { auth } from "../firebase";
 import { getDownloadURL, uploadBytes } from "firebase/storage";
 
-async function CreatePost({title,content,featuredImageFile},navigate){
+async function CreatePost({title,content,featuredImageFile}){
     
     let user=auth.currentUser
     let slugger=(value)=>{
@@ -23,9 +23,10 @@ async function CreatePost({title,content,featuredImageFile},navigate){
             authorId:user.uid,
             createdAt:new Date(),
             featuredImg:imgURL
-
+            
         })
-        navigate(`/all-post/${slug}`)
+        return {status:true}
+        
     } catch (error) {
         console.log(error)
     }

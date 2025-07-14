@@ -3,12 +3,12 @@ import { database } from "../firebase";
 
 
 
-async function DeletePost(slug,navigate) {
+async function DeletePost(slug) {
     
     if(slug){
         try {
             await deleteDoc(doc(database,'posts',slug))
-            navigate('/all-post')
+            
             return {status:true}
             
             

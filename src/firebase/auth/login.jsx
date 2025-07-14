@@ -2,7 +2,8 @@ import { auth } from "../firebase";
 import { useNavigate } from "react-router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-async function Login({ email, password }, navigate) {
+
+async function Login({ email, password }) {
   let navigate = useNavigate();
   try {
     let UserCredential = await signInWithEmailAndPassword(

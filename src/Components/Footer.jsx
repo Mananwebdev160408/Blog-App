@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <footer className="bg-amber-600 text-gray-300 py-6">
+    <footer className="bg-amber-600 text-gray-300 py-6 sticky ">
       <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
         <div className="mb-4 md:mb-0 text-center md:text-left">
           <h1 className="text-xl font-semibold">Blog App</h1>
