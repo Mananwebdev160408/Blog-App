@@ -3,7 +3,7 @@ import { auth, database } from "../firebase";
 import { useNavigate } from "react-router";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 async function Signup({ email, password, name, BirthDate }) {
-  let navigate = useNavigate();
+  
   try {
     let UserCredential = await createUserWithEmailAndPassword(
       auth,
@@ -19,7 +19,7 @@ async function Signup({ email, password, name, BirthDate }) {
         createdAt: new Date(),
         dateofbirth: BirthDate,
       });
-      navigate("/");
+      
       return {status:true,message:'account created successfully',providerId:providerId}
       //TODO:update state in store after setting up redux which is already installed
     } else {
@@ -27,6 +27,7 @@ async function Signup({ email, password, name, BirthDate }) {
     }
   } catch (error) {
     console.log(error);
+    return {status:false}
   }
 }
 export default Signup;

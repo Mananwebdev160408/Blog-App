@@ -5,8 +5,14 @@ import { auth } from "../firebase/firebase";
 import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import Button from "./Button";
+import Signout from "../firebase/auth/SignOut";
+
 
 function Navbar() {
+  async function logoutfn() {
+    let result=await Signout()
+    console.log(result.status)
+  }
   return (
     <>
       <nav className=" h-16 flex justify-between bg-amber-500 ">
@@ -16,9 +22,13 @@ function Navbar() {
         <section className="w-3xl ">
           {auth.currentUser ? (
             <>
+            <div className="flex justify-around text-2xl font-medium items-center h-16">
             <Link to='/' element={<Home/>}>Home</Link>
             <Link to='/postform'>Create Post</Link>
-            <Button>Logout</Button>
+            <button className='w-[80px] h-[30px] rounded-[100px] text-[18px] font-semibold bg-orange-700 cursor-pointer text-white border-none hover:scale-103 hover:translate-y-[-1px] transition-all duration-200 'onClick={()=>{logoutfn()}}>
+        Logout
+    </button>
+            </div>
             </>
           ) : (
             <>

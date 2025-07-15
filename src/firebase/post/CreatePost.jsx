@@ -1,5 +1,6 @@
 import { setDoc,doc } from "firebase/firestore";
 import { database, storage } from "../firebase";
+import { ref } from "firebase/storage";
 
 import { auth } from "../firebase";
 import { getDownloadURL, uploadBytes } from "firebase/storage";
@@ -13,7 +14,7 @@ async function CreatePost({title,content,featuredImageFile}){
     let slug=slugger(title)
     if(user){
         try {
-            let imgRef=ref(storage,`posts/${user.uid}/${Date.now()}__${featuredImageFile.name}`)
+            let imgRef=ref(storage,`posts/${user.uid}/${Date.now()}__${slug}`)
             await uploadBytes(imgRef,featuredImageFile)
             let imgURL= await getDownloadURL(imgRef)
             await setDoc(doc(database,'posts',slug),{
@@ -29,6 +30,7 @@ async function CreatePost({title,content,featuredImageFile}){
         
     } catch (error) {
         console.log(error)
+        return {status:true}
     }
     }
     else{

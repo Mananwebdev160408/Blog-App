@@ -2,7 +2,7 @@ import { updateDoc } from "firebase/firestore";
 import { database } from "../firebase";
 import { auth } from "../firebase";
 
-async function UpdatePost(slug, { title, content, slug, imgURL }) {
+async function UpdatePost(slug, { title, content, imgURL }) {
   let user = auth.currentUser;
   if (user) {
     try {
@@ -15,6 +15,7 @@ async function UpdatePost(slug, { title, content, slug, imgURL }) {
       return {status:true,message:`Updated successfully`}
     } catch (error) {
         console.log(error)
+        return {status:true}
     }
   }
   else{

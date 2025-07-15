@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Button({children}) {
+function Button({children},props) {
   return (
     <>
-    <button className='w-[80px] h-[30px] rounded-[100px] text-[18px] font-semibold bg-orange-700 cursor-pointer text-white border-none hover:scale-103 hover:translate-y-[-1px] transition-all duration-200 '>
+    <button className='w-[80px] h-[30px] rounded-[100px] text-[18px] font-semibold bg-orange-700 cursor-pointer text-white border-none hover:scale-103 hover:translate-y-[-1px] transition-all duration-200 '{...props}>
         {children}
     </button>
     </>

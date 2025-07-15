@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {auth} from '../firebase/firebase'
 import Navbar from '../Components/Navbar'
 import Footer from '../Components/Footer'
+import ListPosts from '../firebase/post/GetAllPost'
+import PostCard from '../Components/PostCard'
 
 function Home() {
+  const [Postslist, setPostslist] = useState([])
+  async function getallactiveposts() {
+    let postlist=await ListPosts()
+    setPostslist(postlist)
+  }
+  useEffect(()=>{
+    getallactiveposts()
+  },[])
 return(
   
   <>
@@ -11,7 +21,15 @@ return(
   <div className='min-h-[78vh]'>
   {auth.currentUser?(
     <>
-    
+    <div className='w-[100vw] flex justify-around flex-wrap'>
+      {
+        Postslist.map((post)=>(
+          <div key={post.id}>
+          <PostCard {...post}/>
+          </div>
+        ))
+      }
+    </div>
     </>
   ):(
     <>

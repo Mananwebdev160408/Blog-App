@@ -3,10 +3,11 @@ import Button from "./Button";
 import { Editor } from "@tinymce/tinymce-react";
 import {useForm} from 'react-hook-form'
 import { useNavigate } from "react-router";
-import UpdatePost from "../firebase/post/UpdatePost";
+import UpdatePost from "../firebase/post/Updatepost";
+import CreatePost from "../firebase/post/CreatePost";
 
 function PostForm({post}) {
-  const [img, setimg] = useState(null)
+  const [img, setimg] = useState([])
   let Contref=useRef()
 
   
@@ -22,8 +23,17 @@ function PostForm({post}) {
     if(post){
       let slug=post.slug
       let result=await UpdatePost(slug,{...data})
-      if(result.status===true) navigate('/all-post')
+      if(result.status===true) navigate('/')
     }
+  else{
+    let result=await CreatePost({...data})
+    if(result.status===true) {
+      navigate('/')
+    }
+    else{
+      console.log('not working')
+    }
+  }
   }
   useEffect(()=>{
     register('content',{required:true})
@@ -31,19 +41,21 @@ function PostForm({post}) {
   //TODO: try removing register form dependency array
   
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen max-w-screen ">
       <form onSubmit={handleSubmit(postsubmit)}>
       <nav className="px-8 py-10 flex justify-between items-center">
         <Button>← Back</Button>
-        <Button>{
+        <button className='w-[80px] h-[30px] rounded-[100px] text-[18px] font-semibold bg-orange-700 cursor-pointer text-white border-none hover:scale-103 hover:translate-y-[-1px] transition-all duration-200 'type="submit">
+        {
           post?<h1>Update →</h1>:<h1>Post →</h1>
-          }</Button>
+          }
+    </button>
       </nav>
 
       <div className="grid grid-cols-12 h-[80vh] w-full grid-rows-4   px-6 ">
         <div className="col-span-6 flex justify-center items-center">
           <div className="relative  flex justify-between mx-5 items-center mb-9 w-2xl">
-            <label htmlFor="name" className="leading-7  text-white text-2xl">
+            <label htmlFor="text" className="leading-7  text-white text-2xl">
               Title{" "}
             </label>
             <h1 className="text-white text-2xl">→</h1>
@@ -150,9 +162,8 @@ function PostForm({post}) {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                   
+                    
                     d="M12 4v16m8-8H4"
                   />
                 </svg>
@@ -173,18 +184,12 @@ function PostForm({post}) {
                   </span>
                 </label>
 
-                <div
-                  id="file-name"
-                  className="mt-3 text-gray-700 text-sm font-medium hidden"
-                >
-                  {
-                    img?uploaded:null
-                  }
-                </div>
+               
               </div>
 
               <button
                 id="upload-btn"
+               
                 className="w-full mt-6 py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-all duration-300"
                 disabled
               >
